@@ -1,0 +1,11 @@
+<p>with-signal</p>
+ <br/>
+
+<span [style.color]="sCountColor()">sCount={{sCount()}}</span> 
+&nbsp; <button (click)="onIncrement()">++</button> 
+&nbsp; <button (click)="onDecrement()">--</button> <br/>
+<hr/>
+sSquare={{sSquare()}} <br/>
+message(as an effect)={{message}}
+<hr/>
+sCount = <input type="number" [value]="sCount()" (change)="onSCountChange($event)"  />

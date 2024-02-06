@@ -1,0 +1,22 @@
+<p>with-defer</p>
+
+<hr/>
+<h3>Timer(3s)</h3>
+
+@defer (on timer(3s)) {
+  <div class="greenBackground">Visible after 3s</div>
+}
+@placeholder {
+  <div class="yellowBackground">Placeholder (before 3s)</div>
+}
+
+<hr/>
+<div #aPagePart>aPagePart</div>
+@defer (on viewport(otherPagePart) ; prefetch on idle) {
+    <p class="greenBackground">final render</p>
+  } @placeholder(minimum 2s) {
+    <div class="yellowBackground">...placeholder.. (before final rendering with lazy loading ...)</div>
+  }
+<hr/>
+**<br/>**<br/>**<br/>**<br/>**<br/>**<br/>**<br/>**<br/>**<br/>
+<div #otherPagePart>otherPagePart</div>

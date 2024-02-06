@@ -1,0 +1,7 @@
+<div [style.background-color]="mySharedService.sBackColor()">
+footer - sBackColor : <select [value]="mySharedService.sBackColor()" 
+                              (change)="onChangeSBackColor($event)">
+     <option>lightGrey</option>  <option>lightBlue</option>  <option>white</option>
+     <option>lightGreen</option>  <option>yellow</option>
+</select>
+</div>

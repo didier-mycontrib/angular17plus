@@ -1,0 +1,32 @@
+<h4>with-code-flow</h4>
+<hr/>
+<p>mainFixPart</p>
+<button (click)="toggleValues()">fill/empty values array</button>
+<table border="1">
+  <tr><th>v</th><th>v*v</th></tr>
+  @for(v of values; track v){
+       <tr><td>{{v}}</td><td>{{v*v}}</td></tr>
+   }
+   @empty {
+    <tr><td>?</td><td>?</td></tr>
+   }
+</table>
+<input type="checkbox" [(ngModel)]="withDetails"> withDetails
+<hr/>
+@if(withDetails) {
+    <div>
+       <p>details ...</p>
+       <select [(ngModel)]="detailLevel" >
+             <option>none</option>
+             <option>low</option>
+             <option>high</option>
+       </select> <br/>
+      @switch (detailLevel) {
+        @case("none"){ <div>detailLevel=none [no details]</div>}
+        @case("low"){ <div>detailLevel=low , few details</div>}
+        @case("high"){ <div>detailLevel=high , much details ,  ...</div>}
+      } 
+    </div>  
+} @else {
+    <p>no details</p>
+}
