@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>basic</title>
+        <script src="lib/rxjs.umd.min.js"></script>
+        <script src="js/rxjs-exercices.js"></script>
+        <!-- <script src="js/rxjs-exercices-solution.js"></script> -->
+    </head>
+    <body>
+        <h1>Exercices RxJs</h1>
+        <hr/>
+        <h2>initial dataSet (array of product objects)</h2>
+        <pre>
+        let productsArray = [
+        { num : 1 , label : "usb key" , price : 12.5 , category : "computer"} ,
+        { num : 2 , label : "mouse" , price : 8.80 , category : "computer"} ,
+        { num : 4 , label : "screen" , price : 250 , category : "computer"} ,
+        { num : 3 , label : "printer" , price : 180 , category : "computer"} ,
+        { num : 5 , label : "t-shirt" , price : 15.7 , category : "clothes"} ,
+        { num : 6 , label : "pull" , price : 45.7 , category : "clothes"} ];
+        </pre>
+        <pre>Code de l'exercice à compléter en tp au sein du fichier js/rxjs-exercices.js</pre>
+        <hr/>
+        min_price :<input id="minPriceInput" value="0" /> &nbsp;
+        max_price :<input id="maxPriceInput" value="999" /> <br/>
+        category: <select id="selectCategory">
+            <option>computer</option>
+            <option>clothes</option>
+        </select> &nbsp;
+        
+        <button id="btnRefreshCriteria" >resfresh criteria</button> &nbsp;
+        <hr/>
+        <h3>viewer1 (data table):</h3>
+        <span class="item" id="viewer1"></span>
+        <hr/>
+        <h3>viewer3 (number of products):</h3>
+        <span class="item" id="viewer2"></span>
+    </body>
+</html>

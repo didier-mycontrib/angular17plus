@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>rxjs-pipeline-with-objects</title>
+        <script src="lib/rxjs.umd.min.js"></script>
+        <script src="js/rxjs-with-objects.js"></script>
+    </head>
+    <body>
+        <h1>RxJs pipelines with objects</h1>
+        <hr/>
+        <h2>initial dataSet (array of product objects)</h2>
+        <pre>
+        let productsArray = [
+        { num : 1 , label : "usb key" , price : 12.5 } ,
+        { num : 4 , label : "screen" , price : 250 } ,
+        { num : 2 , label : "mouse" , price : 8.80 } ,
+        { num : 3 , label : "printer" , price : 180 } ];
+        </pre>
+        <pre>
+        rxjs.of(productsArray)
+            .pipe( 
+                rxjs.switchMap(p=>p),
+                rxjs.filter( p => p.price <= maxPrice),
+                rxjs.toArray(),
+                rxjs.map(sArray => sArray.sort(compareFunction))
+            )
+            .subscribe(outputArray => { console.log(JSON.stringify(outputArray));
+        </pre>
+        <hr/>
+        max price (filtering): <input id="maxPriceInput" value="999" /> <br/>
+        sort products by <select id="selectFilter">
+            <option>num</option>
+            <option>label</option>
+            <option>price</option>
+        </select> <br/>
+        
+        <button id="btnExPipeline" >activate reactive pipeline</button> &nbsp;
+        <hr/>
+        <span id="spanResExPipeline"></span>
+        <hr/>
+
+        
+
+    </body>
+</html>

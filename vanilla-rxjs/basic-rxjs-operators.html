@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>basic-rxjs-operators</title>
+        <script src="lib/rxjs.umd.min.js"></script>
+        <script src="js/basic-rxjs-operators.js"></script>
+    </head>
+    <body>
+        <h1>Basic RxJs Operators</h1>
+        <hr/>
+
+        <span id="spanBeforePositiveFiltering"></span>
+        <button id="btnExPositiveFiltering" >filter(v => v >= 0)</button> &nbsp;
+        <span id="spanAfterPositiveFiltering"></span>
+        <hr/>
+
+        <span id="spanBeforeEvenFiltering"></span>
+        <button id="btnExEvenFiltering" >filter(v => v % 2 === 0)</button> &nbsp;
+        <span id="spanAfterEvenFiltering"></span>
+        <hr/>
+
+        <span id="spanBeforeMapToSquare"></span>
+        <button id="btnExMapToSquare" >map( v => v*v )</button> &nbsp;
+        <span id="spanAfterMapToSquare"></span>
+        <hr/>
+
+        <span id="spanBeforeMapToUpperCase"></span>
+        <button id="btnExMapToUpperCase" >map( s => s.toUpperCase() )</button> &nbsp;
+        <span id="spanAfterMapToUpperCase"></span>
+        <hr/>
+
+        <span id="spanBeforeMapSortingArray"></span>
+        <button id="btnExMapSortingArray" >map( namesArray => namesArray.sort() )</button> &nbsp;
+        <span id="spanAfterMapSortingArray"></span>
+        <hr/>
+
+    </body>
+</html>

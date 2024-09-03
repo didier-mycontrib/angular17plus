@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>basic-rxjs-sources</title>
+        <script src="lib/rxjs.umd.min.js"></script>
+        <script src="js/basic-rxjs-sources.js"></script>
+    </head>
+    <body>
+        <h1>Basic RxJs Sources</h1>
+        <hr/>
+        <button id="btnExRange" >range(1,10)</button> &nbsp;
+        <span id="spanRange"></span>
+        <hr/>
+
+        <button id="btnExOfArray" >of(daysOfWeekArray)</button> &nbsp;
+        <span id="spanOfArray"></span>
+        <hr/>
+
+        <button id="btnExOfArrayItems" >of(... daysOfWeekArray)</button> &nbsp;
+        <span id="spanOfArrayItems"></span>
+        <hr/>
+
+        <button id="btnExAjax" >ajax(restWsUrl)</button> &nbsp;
+        <span id="spanResAjax"></span>
+        <hr/>
+
+        <div id="divA">
+            move mouse over this div <br/>
+            after subcribe from mousemove event
+        </div>
+        <button id="btnSubscribeFromEvent" >subscribe fromEvent</button> &nbsp;
+        <button id="btnUnsubscribeFromEvent" >unsubscribe</button> <br/>
+        Coords: <span id="spanResFromEvent"></span>
+        <hr/>
+
+    </body>
+</html>

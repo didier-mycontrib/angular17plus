@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>high-order-observables</title>
+        <script src="lib/rxjs.umd.min.js"></script>
+        <script src="js/high-order-observables.js"></script>
+    </head>
+    <body>
+        <h1>High order observables (observables of observables)</h1>
+        <hr/>
+        mode: <select id="selectMode">
+            <option>concatMap</option>
+            <option>mergeMap</option>
+            <option>switchMap</option>
+            <option>exhaustMap</option>
+        </select>
+        <hr/>
+        <button id="btnExHighOrderObs" >High Order Observable</button> <br/>
+        <span id="spanExHighOrderObs"></span>
+        <hr/>
+        <pre>
+       NB: outerObservable.pipe(
+       xyzMap(innerObservable),
+       ....)
+       .subscribe(.... données globalement récupérées   ...);
+
+        Variantes:
+        concatMap(innerObservable)  : concaténation après un déclenchement d'une boucle sur le outer_observable et bufferisation
+                                            ordre contrôlé au sein du résultat global (groupBy sur outer observable)
+        mergeMap(innerObservable)  : fusion avec sous déclenchements en parallèles au fur et à mesure (multiple sous-subscribes simultanés)
+                                        ordre incontrôlé au sein du résultat global
+        switchMap(innerObservable) :  sous déclenchements séquentiels  (subscribe , unsubscribe/cancel_new, subscribe, unsubscribe/cancel_new , ...)
+                                        interruption du traitement du sous niveau courant dès qu'arrive un nouvel élémnet du niveau principal
+        exhaustMap(innerObservable) : comme switchMap mais ignore nouvelle occurrence du niveau principal si le traitement du sous niveau courant n'est pas encore terminé
+        </pre>
+    </body>
+</html>

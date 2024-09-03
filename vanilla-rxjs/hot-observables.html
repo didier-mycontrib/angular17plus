@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>hot observables</title>
+        <script src="lib/rxjs.umd.min.js"></script>
+        <script src="js/hot-observables.js"></script>
+        <style>
+                .box {  display: flex;  flex-wrap: nowrap; }
+                .item {  flex: 1 1 auto; font-weight: bold;}
+        </style>
+    </head>
+    <body>
+        <h1>RxJs Hot (shared) Observables</h1>
+        <hr/>
+        last produced value:
+        <span id="spanLastProduced"></span>
+        <hr/>
+        <p>cold (default) observable : not shared , no synchronized consumers/viewers : one observable instance by consumer</p>
+        <p>hot observable : shared , synchronized consumers/viewers : unsubscribing is deffered (waiting last consumer)</p>
+        type of observable: <select id="selectColdOrHot">
+            <option>cold</option>
+            <option>hot</option>
+        </select> &nbsp; 
+        <button id="btnEx" >start sequence (7s)</button> &nbsp;
+        <hr/>
+        <div class="box">
+                <span class="item">viewer1:</span>
+                <span class="item">viewer2 (delay=2s):</span>
+                <span class="item">viewer3 (delay=4s):</span>
+        </div>
+        <div class="box">
+            <span class="item" id="viewer1"></span>
+            <span class="item" id="viewer2"></span>
+            <span class="item" id="viewer3"></span>
+    </div>
+    
+
+    </body>
+</html>
