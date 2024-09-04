@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>modules-es2015</title>
+    </head>
+    <body>
+        <h1>modules es2015/typescript</h1>
+        <hr/>
+        <h3>personne.ts</h3>
+        <pre>
+            export class Personne{
+                ...
+            }
+        </pre>
+        <hr/>
+        <h3>employe.ts</h3>
+        <pre>
+            import { Personne } from "./personne";
+
+            export class Employe extends Personne {
+            ...
+            }
+        </pre>
+        <hr/>
+        <h3>test_pers_emp.ts</h3>
+        <pre>
+            import { Employe } from "./employe";
+            import { Personne } from "./personne";
+
+            function test_personne_employe (){
+            ...
+            }
+        </pre>
+        <hr/>
+        <h3>Expérimentations</h3>
+        <pre>
+            * supprimer tous les import/export au sein des fichiers ci dessus
+            * tenter de lancer tsc et node dist/js/test_pers_emp.ts (avec ERREURS)
+            * ajouter tous les import/export nécessaires (avec ou sans assistants)
+            * relancer tsc et node dist/js/test_pers_emp.ts
+        </pre>
+
+        <h3>Autre exemple (avec webpack)</h3>
+        <pre>
+            * En mode "web/frontend" , les modules es2015 (avec import/export) 
+              peuvent être analysés par la technologie webpack ou bien rollup
+              de manière à construire des "bundles" rapides à télécharger.
+            * Le projet exemple-ts/modules-webpack-ts est un exemple de projet
+              basé sur typescript et webpack
+              Configuration importante (dans modules-webpack-ts/tsconfig.json): 
+                  "module": "ES2015"
+        </pre>
+    </body>
+</html>

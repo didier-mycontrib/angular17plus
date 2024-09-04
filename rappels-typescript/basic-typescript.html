@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>basic-typescript</title>
+    </head>
+    <body>
+        <h1>Bases de typescript</h1>
+        <h3>logiciels à télécharger et installer si besoin:</h3>
+        <pre>
+            * nodeJs (choisir dernière version LTS)
+            * VisualStudioCode (bon IDE pour javascript/typescript/angular)
+        </pre>
+        <hr/>
+        <h3>Premiers pas avec typescript:</h3>
+        <pre>
+            Vérification de l'installation de node/npm:
+            ------------------------------------------
+            node --version
+            npm --version
+
+            Installation de typescript et vérification:
+            ------------------------------------------
+            npm install -g typescript
+            tsc --version
+
+            Au sein du répertoire d'un projet (ex: "rappels-typescript"):
+            ------------------------------------------
+            * visualiser le contenu du fichier src/hello-world.ts
+            * se placer dans le répertoire src (au sein d'un terminal)
+            * lancer la commande suivante:
+                 tsc hello-world.ts
+            * visualiser le fichier src/hello-world.js construit
+            * lancer la commande suivante:
+               node hello-world.js
+            * supprimer le fichier src/hello-world.js (car pas à l'entroit idéal)
+         </pre>
+         <hr/>
+         <h3>contenu de hello-world.ts:</h3>
+         <pre>
+            let message : string ;
+            //message = 5; //wrong type
+            message = "hello world";
+            console.log(message);
+
+            const a =8;
+            console.log("a="+a);
+         </pre>
+    </body>
+</html>

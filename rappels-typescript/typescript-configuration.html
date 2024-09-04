@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>typescript-configuration</title>
+    </head>
+    <body>
+        <h1>Configuration de typescript-</h1>
+        <h3>Création d'un fichier tsconfig.json:</h3>
+        <pre>
+            Au sein du répertoire d'un projet (ex: "rappels-typescript"):
+            ------------------------------------------
+            tsc --init
+        </pre>
+        <hr/>
+        <h3>Contenu important de <u>tsconfig.json</u></h3>
+        <pre>
+            {
+                "compilerOptions": {
+                  "target": "es2017",
+                  "module" : "CommonJS",
+                  "rootDir": "src", 
+                  "outDir": "dist/js",
+                  "strict": true  
+                }
+            }
+        </pre>
+        <hr/>
+        <h3>Utilisation de typescript en mode "projet":</h3>
+        <pre>
+          
+            Au sein du répertoire d'un projet (ex: "rappels-typescript"):
+            ------------------------------------------
+            * supprimer tout les fichiers du répertoire "dist/js" (qui seront reconstruits)
+            * se placer à la racine du projet (au sein d'un terminal)
+            * lancer la commande suivante:
+                 tsc 
+            * visualiser les fichiers ".js" construits au sein de dist/js
+            * lancer la commande suivante:
+                  node dist/js/hello-world.js
+            * effectuer facultativement d'autres petits tests
+         </pre>
+    </body>
+</html>

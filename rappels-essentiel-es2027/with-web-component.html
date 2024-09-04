@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>with-web-component</title>
+	<script src="js/hello-world-component.js" ></script>
+    <script src="js/with-attr-component.js" ></script>
+    <script src="js/with-shadow-component.js" ></script>
+    <script src="js/with-shadow-template-component.js" ></script>
+    <script src="js/toggle-panel-component.js" ></script>
+	<link rel="stylesheet" href="css/styles.css" type="text/css" > 
+</head>
+
+<body>
+   <h1>with-web-component</h1>
+   
+   <!-- NB:cette balise personnalisée correpond au webcomponent
+        élémentaire codé dans le fichier hello-world-component.js -->
+   <hello-world-component></hello-world-component> <br/>
+
+   <with-attr-component name="toto" color="blue"></with-attr-component>
+   <with-attr-component name="titi" color="green"></with-attr-component>
+
+   <p class="c1 c2">before</p>
+   <with-shadow-component>
+    <span slot="comment">***</span>
+   </with-shadow-component>
+   <p class="c1 c2">after</p>
+
+   <template id="templateAdd">
+        <slot name="title">PlaceHolder for Addition Default Title without h3</slot>
+        <label>a:</label><input name="a" /> <br/>
+        <label>b:</label><input name="b" /> <br/>
+        <button id="btnAdd">addition</button> <br/>
+        <label>res:</label><span id="spanRes"></span>
+        <hr/>
+        <slot></slot>
+        <hr/>
+   </template>
+
+   <with-shadow-template-component>
+       <h3 slot="title">Addition</h3>
+       <p>default unamed slot</p>
+   </with-shadow-template-component>
+
+   <toggle-panel-component label="p1">
+      <div>p1 content</div>
+   </toggle-panel-component>
+
+   <toggle-panel-component label="calcul">
+    <with-shadow-template-component>
+        <h3 slot="title">Addition</h3>
+        <p>default unamed slot</p>
+    </with-shadow-template-component>
+ </toggle-panel-component>
+
+   <!--
+   <with-shadow-template-component>
+       <h4 slot="title">Addition2</h4>
+    </with-shadow-template-component>
+    -->
+    <!--
+   <unkown-undefined-element>
+    <h3 slot="title">abc</h3>
+   </unkown-undefined-element>
+   -->
+</body>
+</html>
