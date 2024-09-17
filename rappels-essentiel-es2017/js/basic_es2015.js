@@ -93,15 +93,15 @@ function test_parcours_tableau(){
 	
 	let n  = tableau.length;
 	for(let i = 0; i<n; i++) {
-		dualAppendMessage(">> at index " + i  + " value = " + tableau[i] ) ;
+		dualAppendMessage(">> at index " + i  + " value = " + tableau[i] );
 	}
 
 	for(let i in tableau) { 
-		dualAppendMessage("** at index " + i  + " value = " + tableau[i] ) ;
+		dualAppendMessage("** at index " + i  + " value = " + tableau[i] );
 	}
 
 	for( let s  of tableau){
-		dualAppendMessage("## val = " + s) ;
+		dualAppendMessage("## val = " + s);
 	}
 
 
@@ -285,7 +285,7 @@ var sam = new Snake("Sammy the Python");  //var sam = new Snake();
 
 var tom = new Horse("Tommy the Palomino");
 
-a.move() ; // default animal name moved 0m.
+a.move(); // default animal name moved 0m.
 sam.move(); // Slithering… Sammy the Python moved 5m.
 
 tom.move(34); //avec polymorphisme  (for  Horse)
@@ -401,10 +401,10 @@ if(m.size==0)
 
 //Bien que ce code soit lisible et explicite, un vieil objet javascript en faisait autant :
 var objectMap = {
-   hiver : "froid , neige",
-   printemps : "fleur , vert",
-} ;
-objectMap["ete"]="chaud, plage" ;
+   hiver: "froid , neige",
+   printemps: "fleur , vert",
+};
+objectMap["ete"]="chaud, plage";
 console.log("carateristique_hiver="+ objectMap["hiver"]); // froid , neige
 
 }
