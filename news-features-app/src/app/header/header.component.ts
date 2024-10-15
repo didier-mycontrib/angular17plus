@@ -21,5 +21,5 @@ export class HeaderComponent {
   */
 
   //better dependency injection (in case of inheritance or if used in function)
-  public mySharedService = inject(MySharedService);
+  public mySharedService = inject(MySharedService); //NB: inject() exists since angular 14+ 
 }

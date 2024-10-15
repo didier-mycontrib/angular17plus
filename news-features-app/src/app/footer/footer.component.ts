@@ -1,4 +1,4 @@
-import { Component, inject , Output } from '@angular/core';
+import { Component, inject , output } from '@angular/core';
 import { MySharedService } from '../common/service/my-shared.service';
 import { FormsModule } from '@angular/forms';
 
@@ -21,7 +21,9 @@ export class FooterComponent {
   //better dependency injection (in case of inheritance or if used in function)
   public mySharedService = inject(MySharedService);
 
-  backColorChangeEvent = Output("?"); //as @Output but with output signal
+  backColorChangeEvent = output<string>(); //as @Output but with output signal
+
+  //NB: il existe (au cas ou) les passerelles outputToObservable() et outputFromObservable()
  
   public onChangeSBackColor(event: Event){
       const input = event.target as HTMLInputElement;
