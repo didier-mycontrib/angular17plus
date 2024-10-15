@@ -9,3 +9,11 @@ sSquare={{sSquare()}} <br/>
 message(as an effect)={{message}}
 <hr/>
 sCount = <input type="number" [value]="sCount()" (change)="onSCountChange($event)"  />
+
+<hr/>
+from observable : {{ myIntervalObs | async}} <br/>
+from signal : {{ myIntervalSignal()}}
+<hr/>
+name1:<input [(ngModel)]="name1" /> {{name1 | uppercase}} <br/>
+name2AsSignal:<input [value]="name2AsSignal()" (input)="onName2Change($event)" /> {{name2AsSignal() | uppercase}} <br/>
+name3AsSignal:<input [ngModel]="name3AsSignal()" (ngModelChange)="name3AsSignal.set($event)" /> {{name3AsSignal() | uppercase}} <br/>

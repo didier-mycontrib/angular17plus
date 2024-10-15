@@ -12,4 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 })
 export class AppComponent {
   title = 'news-features-app';
+
+  onBackColorChange(evt:Event){
+    console.log("onBackColorChange() , evt="+evt);
+  }
 }

@@ -1,5 +1,5 @@
-<app-header></app-header>
+<app-header [titre]="title"></app-header>
 
 <router-outlet />
 
-<app-footer></app-footer>
+<app-footer (backColorChangeEvent)="onBackColorChange($event)"></app-footer>

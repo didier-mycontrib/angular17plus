@@ -1,10 +1,13 @@
 import { Component, Signal, computed, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { interval} from 'rxjs';
+import { toSignal} from '@angular/core/rxjs-interop';
+import { AsyncPipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-with-signal',
   standalone: true,
-  imports: [],
+  imports: [FormsModule , AsyncPipe, UpperCasePipe],
   templateUrl: './with-signal.component.html',
   styleUrl: './with-signal.component.scss'
 })
@@ -41,6 +44,18 @@ export class WithSignalComponent {
   public onSCountChange(event : Event){
       const input = event.target as HTMLInputElement;
       this.sCount.set(Number(input.value));
+  }
+
+  myIntervalObs = interval(1000); //observable emmitting 1,2,3,.. every 1000ms
+  myIntervalSignal = toSignal(this.myIntervalObs, { initialValue: 0 } )
+  name1="";
+  name2AsSignal=signal("");
+  name3AsSignal=signal("");
+
+  public onName2Change(evt:Event){
+      const newText = (evt.target as HTMLInputElement).value;
+      console.log("newText="+newText);
+      this.name2AsSignal.set(newText);
   }
 }
 /*
