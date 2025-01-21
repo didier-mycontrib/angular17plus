@@ -36,6 +36,14 @@ export class GenericCrudContext<T,I>{
         else return throwError(()=>{err:"onFindObjectsByCriteria$ not implemented (no genericCrudService and no crudHelper)"});
     }
 
+    public applyClientSideFilter( obs: Observable<T[]> , filteringFn:any):Observable<T[]>{
+        return obs.pipe(
+          switchMap(obj=>obj),
+          filter(filteringFn),
+          toArray()
+        );
+    }
+
     public onFindObjectsWithFilterDefs$(genericCrudService : GenericCrudService<T> | null) : Observable<T[]>{
         let allServerSideFilters = "";
         let clientSideFilters = [];
@@ -54,15 +62,17 @@ export class GenericCrudContext<T,I>{
         let serverSideResults : Observable<T[]>= 
            this.onFindObjectsByCriteria$(allServerSideFilters,genericCrudService);
 
-        if(clientSideFilters.length==0)
-            return serverSideResults; //without client side filter
-        else
-           return serverSideResults //with client side filter(s)
-           .pipe(
-             switchMap(obj=>obj),
-             filter(clientSideFilters[0].clientFilterFnWithArg()),
-             toArray()
-           );
+        
+        let clientSideResults =serverSideResults;
+        
+        //code optimisable:
+        for(let i=0; i < clientSideFilters.length; i++){
+            clientSideResults = 
+                this.applyClientSideFilter(clientSideResults,
+                    clientSideFilters[i].clientFilterFnWithArg());
+        }
+     
+        return clientSideResults;
     }
 
     public onAddObject$(obj:T , genericCrudService : GenericCrudService<T> | null) : Observable<T>{
