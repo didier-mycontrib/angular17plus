@@ -1,0 +1,11 @@
+<p>list-prod </p>
+<table border="1">
+ <tr><th>numero</th><th>label</th><th>prix</th></tr>
+ @for(prod of listeProduits; track prod){
+   <tr>
+      <td>{{prod.numero}}</td>
+      <td>{{prod.label}}</td>
+      <td>{{prod.prix}}</td> 
+   </tr>
+}
+</table>

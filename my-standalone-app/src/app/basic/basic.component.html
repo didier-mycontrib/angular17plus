@@ -1,0 +1,26 @@
+<h3>basic</h3>
+<h5><u>via sub-routes</u></h5>
+  <a routerLink="/ngr-basic/calculatrice/simple" >calculatrice simple</a>&nbsp;
+   <a routerLink="/ngr-basic/calculatrice/sophistiquee" >calculatrice sophistiquee</a>&nbsp;
+   <a routerLink="/ngr-basic/tva" >tva</a><br/>
+   <router-outlet></router-outlet>
+
+<h5><u>via toogle/expansion-panel</u></h5>
+<my-toggle-panel title="calculatrice">
+    <app-calculatrice></app-calculatrice>
+</my-toggle-panel>
+
+<my-toggle-panel title="tva">
+    <app-tva></app-tva>
+</my-toggle-panel>
+
+<h5><u>via onglets</u></h5>
+<mat-tab-group>
+    <mat-tab label="calculatrice">
+        <app-calculatrice></app-calculatrice>
+    </mat-tab>
+        <mat-tab label="calcul tva">
+    <app-tva></app-tva>
+    </mat-tab>
+</mat-tab-group>
+

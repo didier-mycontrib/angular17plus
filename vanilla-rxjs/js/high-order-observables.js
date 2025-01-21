@@ -8,8 +8,10 @@ window.onload=()=>{
 
     document.getElementById("btnExHighOrderObs").addEventListener("click" , ()=>{
         let msg = "";
-        let wsUrlArray = [ 'https://catfact.ninja/fact' , ' https://geo.api.gouv.fr/communes?codePostal=78000',
-            ' https://geo.api.gouv.fr/communes?codePostal=76000' , ' https://geo.api.gouv.fr/communes?codePostal=80000'
+        let wsUrlArray = [ 'https://catfact.ninja/fact' ,
+   		    ' https://geo.api.gouv.fr/communes?codePostal=78000',
+            ' https://geo.api.gouv.fr/communes?codePostal=76000' , 
+			' https://geo.api.gouv.fr/communes?codePostal=80000'
          ];
 
         let mode =document.getElementById("selectMode").value;
@@ -37,6 +39,47 @@ window.onload=()=>{
             complete : () => dualDisplay("spanExHighOrderObs",msg)
         });
     });
+
+	document.getElementById("btnExForkJoin").addEventListener("click" , ()=>{
+        let wsUrlArray = [ 'https://catfact.ninja/fact' ,
+   		    ' https://geo.api.gouv.fr/communes?codePostal=78000',
+            ' https://geo.api.gouv.fr/communes?codePostal=76000' , 
+			' https://geo.api.gouv.fr/communes?codePostal=80000'
+         ];
+
+
+		rxjs.forkJoin(
+		  {
+			url1: rxjs.ajax.ajax(wsUrlArray[0]),
+			url2: rxjs.ajax.ajax(wsUrlArray[1]),
+			url3: rxjs.ajax.ajax(wsUrlArray[2]),
+			url4: rxjs.ajax.ajax(wsUrlArray[3])
+		  }
+		)
+		.subscribe({
+            next :   x => {dualDisplay("spanResForkJoin",
+			                JSON.stringify(x)); } ,
+            error : e => console.log(e) 
+        });
+	});
+	
+	document.getElementById("btnExZip").addEventListener("click" , ()=>{
+        let wsUrlArray = [ 'https://catfact.ninja/fact' ,
+   		    ' https://geo.api.gouv.fr/communes?codePostal=78000',
+            ' https://geo.api.gouv.fr/communes?codePostal=76000' , 
+			' https://geo.api.gouv.fr/communes?codePostal=80000'
+         ];
+
+		rxjs.zip( rxjs.ajax.ajax(wsUrlArray[0]),
+				rxjs.ajax.ajax(wsUrlArray[1]),
+				rxjs.ajax.ajax(wsUrlArray[2]),
+				rxjs.ajax.ajax(wsUrlArray[3]))
+		.subscribe({
+            next :   x => { dualDisplay("spanResZip",
+			                JSON.stringify(x)); } ,
+            error : e => console.log(e) 
+        });
+	});
 
 }
 

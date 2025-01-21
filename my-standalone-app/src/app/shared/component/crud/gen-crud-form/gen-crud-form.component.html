@@ -1,0 +1,34 @@
+<my-toggle-panel [title]="title" [(panelOpenState)]="tablePanelOpenState">
+
+    <form #formObject="ngForm">  
+        @for( key of objectKeysArray(objectTempRef()); track key){
+            <div class="flexRowWrap" > 
+            <label class="f-align">{{key}}:</label>
+            <div class="f-align">
+               @if(isNoEditableId(key)){
+                <label class="f-max-size  mb-1">{{objectTempRef()[key]}}</label>
+               }@else {
+                <input  [name]="key" class="f-max-size  mb-1" [(ngModel)]="objectTempRef()[key]" required />
+               }
+            </div>       
+          </div><!-- end of flexRowWrap -->
+        }
+         <div class="flexRowWrap">
+             <div class="f-align">
+                  <button (click)="onAction('update')" class="btn-primary" 
+                      [style.visibility]="(modeRef()!='newOne')?'visible':'hidden'"
+                      [disabled]="!formObject.form.valid"  >
+                      update <i class="bi-save"></i></button> &nbsp;
+                  <button (click)="onAction('new')" class="btn-primary"> new </button>  &nbsp;
+                  <button (click)="onAction('add')" [disabled]="!formObject.form.valid"
+                          [style.visibility]="(modeRef()=='newOne')?'visible':'hidden'" 
+                          class="btn-primary"> add </button> &nbsp;
+                  <button (click)="onAction('delete')" [style.visibility]="(modeRef()!='newOne')?'visible':'hidden'" class="btn-danger"> delete </button>
+             </div> 
+         </div><!-- end of flexRowWrap -->
+     </form><!-- end of form -->
+   
+     <my-message [message]="messageRef()"></my-message>
+
+</my-toggle-panel>
+

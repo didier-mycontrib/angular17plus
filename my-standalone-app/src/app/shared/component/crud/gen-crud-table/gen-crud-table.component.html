@@ -1,0 +1,29 @@
+<my-toggle-panel [title]="titleWithSize" [(panelOpenState)]="tablePanelOpenState">
+  
+   
+  <div class="mat-card-content  p-1">
+  <div class="tableContainerWithFixHead">
+    <table>
+        <thead>
+         <tr>
+          @for(key of  essentialKeysArrayRef();track key){
+            <th>{{key}}</th>
+          }
+          </tr>
+      </thead>
+      <tbody>
+        @for(d of tabObjectsRef() ; track d; let i=$index){
+          <tr (click)="onSelectObject(d)"
+          [class.selected]="d==selectedObjectRef()">
+          @for(val of objectEssentialValuesArray(d); track val){
+            <td>{{val}}</td>
+          }
+          </tr>
+      }
+      </tbody>
+     </table> <!-- end of table --> 
+    </div>
+    </div>
+    <my-message [message]="messageRef()"></my-message>
+
+</my-toggle-panel>

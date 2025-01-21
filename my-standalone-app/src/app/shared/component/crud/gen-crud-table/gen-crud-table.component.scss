@@ -1,0 +1,18 @@
+@use "d2f-common-layout.scss";
+
+/* Just common table stuff. */
+table  { border-collapse: collapse; width: 100%;border :1px solid black;}
+th, td { padding: 1px 1px; border:1px solid black;}
+th     { background:#eee; text-align: left;}
+
+/* Fix table head */
+.tableContainerWithFixHead    { overflow: auto; height: 100px; }
+.tableContainerWithFixHead th { position: sticky; top: 0; }
+
+.selected { 
+    //font-weight: bold; //with .width side 
+    color: blue;
+    text-shadow:0px 0.5px 0.5px blue; //without .width side effect
+}
+
+.msg { font-weight: bold;}

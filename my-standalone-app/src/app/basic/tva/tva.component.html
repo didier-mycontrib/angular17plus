@@ -1,0 +1,14 @@
+<div class="fondTva">
+<p>calcul de Tva</p>
+ht: <input type="number" [(ngModel)]="sHt" > <br/>
+taux: <select [(ngModel)]="sTaux"  >
+    @for(t of tauxPossibles; track t){
+        <option [ngValue]="t">{{t}}</option>
+    }
+</select>  <br/>
+<!--
+<button (click)="onCalculerTvaEtTtc()" >calculer Tva et ttc</button><br/>
+-->
+tva=<span [style.font-weight]="sTva()>0?'bold':'normal'">{{sTva() | toFixed:3}}</span><br/>
+ttc={{sTtc() | number:'1.0-2'}}<br/>
+</div>

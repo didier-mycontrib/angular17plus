@@ -1,0 +1,12 @@
+<div class="fondTva">
+<p>calcul de Tva</p>
+ht: <input type="number" (input)="onCalculerTvaEtTtc()" [(ngModel)]="ht" > <br/>
+taux: <select [(ngModel)]="taux"  (change)="onCalculerTvaEtTtc()" >
+   <option *ngFor="let t of tauxPossibles" [ngValue]="t">{{t}}%</option>
+</select>  <br/>
+<!--
+<button (click)="onCalculerTvaEtTtc()" >calculer Tva et ttc</button><br/>
+-->
+tva=<span [style.font-weight]="tva>0?'bold':'normal'">{{tva}}</span><br/>
+ttc={{ttc}}<br/>
+</div>
