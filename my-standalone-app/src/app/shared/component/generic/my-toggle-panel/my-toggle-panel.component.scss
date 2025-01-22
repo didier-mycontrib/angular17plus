@@ -38,6 +38,18 @@ $myBgPrimary : rgb(10, 10, 148) !default;
     padding-bottom: 0px !important;
  };
 
+ ::ng-deep {
+   mat-expansion-panel {
+       .mat-expansion-panel-body {
+           padding: 0.2em;
+       }
+   }
+}
+
+ .mat-expansion-panel{
+   padding-bottom: 0px !important;
+   //border : 1px solid red !important;
+ }
 
  ::ng-deep .my-toogle-panel-header .mat-expansion-indicator::after {
     color : white ;

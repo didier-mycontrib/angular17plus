@@ -11,11 +11,17 @@ export function messageFromError(err : HttpErrorResponse ,
       } else {
       console.log("Server-side error occured : " + JSON.stringify(err));
       let detailErrMsg = (err.error && err.error.message)?":"+err.error.message:"";
-      message = myMsg 
-         + (withStatus?" (status="+ err.status + ":" + err.statusText + ") ":"")
-         + (withDetails?detailErrMsg:"") ; 
+      if(err.status == 200){
+          message = myMsg + "(technical problem)"
+         }else{
+        message = myMsg 
+          + (withStatus?" (status="+ err.status + ":" + err.statusText + ") ":"")
+          + (withDetails?detailErrMsg:"")  
       }
-    return message;
+      }
+    console.log("messageFromError.message="+message)
+    return message + " at " + (new Date).toLocaleTimeString();
+    //return message ;
   }
 
   export function cloneObject(obj:any):any{
@@ -44,5 +50,29 @@ export function messageFromError(err : HttpErrorResponse ,
      Reflect.set(target, key, Reflect.get(source,key));
     }
    }
+
+export function deleteCookie(name:string ) {
+   setCookie(name, '', -1);
+}
+
+export function deleteCookieWithPathDomain(name:string,path:string,domain:string ) {
+  setCookie(name, '', -1,path,domain);
+}
+
+export function setCookie(name: string, value: string, 
+                          expireDays: number|null=null, 
+                          path: string | null =null,
+                          domain : string | null=null ) {
+    let cexpires = ''; //no expires date (sessin cookies) by default
+    if(expireDays){
+      let d:Date = new Date();
+      d.setTime(d.getTime() + expireDays * 24 * 60 * 60 * 1000);
+      cexpires = `; expires=${d.toUTCString()}`;
+    }
+    let cpath:string = path ? `; path=${path}` : '';
+    let cdomain:string = path ? `; domain=${domain}` : '';
+    document.cookie = `${name}=${value}${cexpires}${cpath}${cdomain}`;
+}
+
 
   

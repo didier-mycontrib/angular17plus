@@ -1,4 +1,5 @@
 
+import { FieldHelper } from "../../shared/helper/field-helper";
 import { ObjectHelper } from "../../shared/helper/object-helper";
 import { Product } from "../data/product";
 
@@ -9,4 +10,12 @@ export class ProductHelper implements ObjectHelper<Product,String|null> {
         buildEmptyObject(): Product { return new Product(); };
         getEntityTypeName(): string { return "Product";  };
         essentialFieldNames(): string[] {return ["ref","label","price"]; }
+        getFieldHelper(fieldName:string):FieldHelper|null{
+                        switch(fieldName){
+                                case "ref" : return new FieldHelper("code");
+                                case "label" : return new FieldHelper("name");
+                                case "price" : return new FieldHelper("price","number",0);
+                                default : return null;//NB:FieldHelper(fieldName,fieldType,defaultValue)
+                        }
+                }
 }

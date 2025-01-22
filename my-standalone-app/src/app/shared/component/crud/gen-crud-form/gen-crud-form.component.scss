@@ -1,4 +1,5 @@
 @use "d2f-common-layout.scss";
+@use "d2f-common-form.scss";
 
 label.f-align {
     width: 8em;
@@ -15,3 +16,8 @@ label.f-align {
   .f-max-size {
     width: 97%;
   }
+
+  .new{color : black}
+  .add{color : green}
+  .update{color : blue; font-weight: bold;}
+  .delete{color : red}

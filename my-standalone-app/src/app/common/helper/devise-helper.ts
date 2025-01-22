@@ -1,4 +1,5 @@
 
+import { FieldHelper } from "../../shared/helper/field-helper";
 import { ObjectHelper } from "../../shared/helper/object-helper";
 import { Devise } from "../data/devise";
 
@@ -9,4 +10,12 @@ export class DeviseHelper implements ObjectHelper<Devise,String> {
         buildEmptyObject(): Devise { return new Devise(); };
         getEntityTypeName(): string { return "Devise";  };
         essentialFieldNames(): string[] {return ["code","name","change"]; }
+        getFieldHelper(fieldName:string):FieldHelper|null{
+                switch(fieldName){
+                        case "code" : return new FieldHelper("code");
+                        case "name" : return new FieldHelper("name");
+                        case "change" : return new FieldHelper("change","number",1);
+                        default : return null;//NB:FieldHelper(fieldName,fieldType,defaultValue)
+                }
+        }
 }

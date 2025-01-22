@@ -3,6 +3,7 @@ import { MyTogglePanelComponent } from '../../generic/my-toggle-panel/my-toggle-
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MyMessageComponent } from "../../generic/my-message/my-message.component";
+import { MyImportMaterialModule } from '../../../imports/my-import-material.module';
 
 /*
 Sous composant servant à :
@@ -13,7 +14,9 @@ Sous composant servant à :
 
 @Component({
   selector: 'gen-crud-form',
-  imports: [CommonModule, FormsModule, MyTogglePanelComponent, MyMessageComponent],
+  imports: [CommonModule, FormsModule, 
+           MyTogglePanelComponent, MyMessageComponent,
+          MyImportMaterialModule],
   templateUrl: './gen-crud-form.component.html',
   styleUrl: './gen-crud-form.component.scss'
 })
@@ -36,6 +39,24 @@ export class GenCrudFormComponent {
     title = this.baseTitle;
 
     tablePanelOpenState=true;
+
+    originalObjectTemp : any = null;
+
+    ngOnChanges(){
+      this.originalObjectTemp = this.cloneObject(this.objectTempRef()); //for detect change attempt
+    }
+
+    hasBeenChanged():boolean{
+      let changed=false;
+      let arrayOfPropKeys = Reflect.ownKeys(this.objectTempRef());
+         for(let key of arrayOfPropKeys){
+           let originalFieldValue=this.originalObjectTemp[key];
+           let fieldValue=this.objectTempRef()[key];
+           if(fieldValue!=undefined && fieldValue != originalFieldValue)
+             { changed=true; break; }
+         }
+      return changed;
+   }
 
    private modeEffect = effect(()=>{
       if(this.modeRef() == 'newOne'){

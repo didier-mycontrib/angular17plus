@@ -1,4 +1,4 @@
-import { Component,  input, InputSignal, OnInit } from '@angular/core';
+import { Component,  inject,  input, InputSignal, OnInit } from '@angular/core';
 import { GenericCrudContext } from '../GenericCrudContext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,8 @@ import { messageFromError } from '../../../util/util';
 import { GenCrudTableComponent } from '../gen-crud-table/gen-crud-table.component';
 import { GenCrudFormComponent } from '../gen-crud-form/gen-crud-form.component';
 import { GenCrudParamComponent } from '../gen-crud-param/gen-crud-param.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../generic/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'generic-crud',
@@ -36,7 +38,7 @@ export class GenericCrudComponent implements OnInit {
 
   //[(ngModel)]="deviseTemp.code" , ....
   objectTemp : any = null;
-
+  
   collectionMessage /*: string*/ ="";
   formMessage/*: string*/ ="";
   
@@ -77,7 +79,7 @@ export class GenericCrudComponent implements OnInit {
       case "new": this.onNew(); break;
       case "add": this.onAdd(); break;
       case "update": this.onUpdate(); break;
-      case "delete": this.onDelete(); break;
+      case "delete": this.onDeleteAfterConfirm(); break;
     }
   }
 
@@ -90,9 +92,11 @@ export class GenericCrudComponent implements OnInit {
   onAdd(){
     this.genericCrudService()?.postEntityObject$(this.objectTemp)
     .subscribe(
-     { next: (savedObject)=>{ this.formMessage = this.genericCrudContext()?.entityTypeName + " added";
+     { next: (savedObject)=>{ this.formMessage = this.genericCrudContext()?.entityTypeName + " added"
+                              + " with " + this.extractKeyValueString(savedObject);
+                              this.collectionMessage = this.formMessage;
                               this.addClientSide(savedObject); } ,
-      error: (err)=>{ this.formMessage = messageFromError(err,"echec post"); }
+      error: (err)=>{ this.formMessage = messageFromError(err,"error: echec post",true,true); }
    });
   }
 
@@ -101,14 +105,25 @@ export class GenericCrudComponent implements OnInit {
     this.onNew();
   }
 
+  readonly dialog = inject(MatDialog); 
+
+  onDeleteAfterConfirm(){
+   ConfirmDialogComponent.confirmDialog$(this.dialog,"confirm delete")
+      .subscribe( (isOk : boolean ) => {
+        if(isOk) 
+          this.onDelete();
+      });
+  }
+
   onDelete(){
     if(this.selectedObject){
          let id = this.genericCrudContext()?.contextHelper.objectHelper().getId(this.selectedObject);
          this.genericCrudContext()?.onDeleteObject$(id,this.genericCrudService())
              .subscribe(
               { next: ()=>{ this.collectionMessage = this.genericCrudContext()?.entityTypeName + " deleted";
+                            console.log("GenericCrudComponent.onDelete() collectionMessage="+this.collectionMessage);
                             this.deleteClientSide(); } ,
-               error: (err)=>{ this.formMessage = messageFromError(err,"echec suppression"); }
+               error: (err)=>{ this.formMessage = messageFromError(err,"error: echec suppression",true,true); }
             });
     }
   }
@@ -128,8 +143,9 @@ export class GenericCrudComponent implements OnInit {
     this.genericCrudContext()?.onUpdateObject$(this.objectTemp,this.genericCrudService())
     .subscribe(
      { next: (updatedObject)=>{  this.formMessage = this.genericCrudContext()?.entityTypeName + " updated";
+                   this.collectionMessage = this.formMessage;
                    this.updateClientSide(updatedObject); } ,
-      error: (err)=>{ this.formMessage = messageFromError(err,"echec update (put)");}
+      error: (err)=>{ this.formMessage = messageFromError(err,"error: echec update",true,true);}
    });
   }
 
@@ -158,6 +174,8 @@ export class GenericCrudComponent implements OnInit {
       this.formMessage =  "current "+ this.entityTypeName + "=" + id;
   }
 
+  
+
   cloneObject(obj:any){
     return JSON.parse(JSON.stringify(obj));
   }
@@ -175,6 +193,11 @@ export class GenericCrudComponent implements OnInit {
 
   essentialKeysArray():string[]{
     return this.genericCrudContext()!.contextHelper.objectHelper().essentialFieldNames();
+  }
+
+  extractKeyValueString(obj:any){
+    let keyValue = obj[this.idKeyName];
+    return `${this.idKeyName}=${keyValue}`;
   }
 
   

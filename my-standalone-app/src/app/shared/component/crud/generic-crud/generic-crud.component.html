@@ -1,10 +1,11 @@
+<gen-crud-param
+(reload)="onReload()"
+[(filterDefs)]="genericCrudContext()!.filterDefs" >
+</gen-crud-param>
+
 <div class="flexRowWrap mb-1 mt-1">
     <div class="flexItem m-1" >
-      <gen-crud-param
-        (reload)="onReload()"
-        [(filterDefs)]="genericCrudContext()!.filterDefs" >
-      </gen-crud-param>
-
+  
         <gen-crud-table
           [tabObjectsRef]="genericCrudContext()!.tabObjects"
           [essentialKeysArrayRef]="essentialKeysArray()"

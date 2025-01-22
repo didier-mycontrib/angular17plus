@@ -26,7 +26,7 @@ export const routes: Routes = [
             ]
     },
     { path: 'ngr-devise', component: DeviseComponent ,
-         canActivate : [ authGuard ]
+        canActivate : [ authGuard ]
     },
     { path: 'ngr-conversion', component: ConversionComponent ,
         resolve : { devises : devisesResolver}

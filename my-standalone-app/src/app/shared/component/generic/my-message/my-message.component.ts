@@ -15,11 +15,13 @@ export class MyMessageComponent {
    public sIsErr = computed( () =>  this.message().startsWith("err"));
 
    ngOnChanges(){
+   console.log("MyMessageComponent.ngOnChanges : message="+this.message());
    if( this.notificationTimeout()>0){
-      if(this._timeoutId){
+     if(this._timeoutId){
           clearTimeout(this._timeoutId);
-      } 
+      }
       this._timeoutId = setTimeout(()=> { this.message.set("")}, this.notificationTimeout());
+     // console.log("MyMessageComponent.ngOnChanges : _timeoutId="+this._timeoutId);
      }
   }
 

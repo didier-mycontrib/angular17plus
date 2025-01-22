@@ -1,13 +1,12 @@
-<my-toggle-panel [title]="titleWithSize" [(panelOpenState)]="tablePanelOpenState">
-  
-   
+<my-toggle-panel [title]="titleWithSize" [(panelOpenState)]="tablePanelOpenState">  
   <div class="mat-card-content  p-1">
+  <div class="table-wrapper">
   <div class="tableContainerWithFixHead">
     <table>
         <thead>
          <tr>
           @for(key of  essentialKeysArrayRef();track key){
-            <th>{{key}}</th>
+            <th [ngStyle]="setFieldHeaderStyles(key)" (click)="onAdjustSort(key)">{{key}}</th>
           }
           </tr>
       </thead>
@@ -22,8 +21,8 @@
       }
       </tbody>
      </table> <!-- end of table --> 
-    </div>
-    </div>
+    </div> <!-- end of .tableContainerWithFixHead -->
+  </div> <!-- end of .table-wrapper -->
     <my-message [message]="messageRef()"></my-message>
-
+    </div> <!-- end of .mat-card-content -->
 </my-toggle-panel>
