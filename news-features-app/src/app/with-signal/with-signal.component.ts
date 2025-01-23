@@ -5,11 +5,10 @@ import { toSignal} from '@angular/core/rxjs-interop';
 import { AsyncPipe, UpperCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-with-signal',
-  standalone: true,
-  imports: [FormsModule , AsyncPipe, UpperCasePipe],
-  templateUrl: './with-signal.component.html',
-  styleUrl: './with-signal.component.scss'
+    selector: 'app-with-signal',
+    imports: [FormsModule, AsyncPipe, UpperCasePipe],
+    templateUrl: './with-signal.component.html',
+    styleUrl: './with-signal.component.scss'
 })
 export class WithSignalComponent {
   message="";

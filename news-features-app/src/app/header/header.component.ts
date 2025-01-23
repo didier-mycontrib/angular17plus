@@ -3,11 +3,10 @@ import { RouterLink } from '@angular/router';
 import { MySharedService } from '../common/service/my-shared.service';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    imports: [RouterLink],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
 

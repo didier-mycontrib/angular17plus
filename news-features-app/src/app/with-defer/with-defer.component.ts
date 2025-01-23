@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-with-defer',
-  standalone: true,
-  imports: [],
-  templateUrl: './with-defer.component.html',
-  styleUrl: './with-defer.component.scss'
+    selector: 'app-with-defer',
+    imports: [],
+    templateUrl: './with-defer.component.html',
+    styleUrl: './with-defer.component.scss'
 })
 export class WithDeferComponent {
 
