@@ -1,4 +1,4 @@
-import { Component,  inject,  input, InputSignal, OnInit } from '@angular/core';
+import { Component,  inject,  input, InputSignal, OnInit, TemplateRef } from '@angular/core';
 import { GenericCrudContext } from '../GenericCrudContext';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,7 @@ export class GenericCrudComponent implements OnInit {
   public genericCrudService : InputSignal<GenericCrudService<any> | null> 
      = input(null,{transform: (genericCrudService)=> <GenericCrudService<any>><any> genericCrudService });
 
-
+  public optionalSpecificSubFormTemplateRef = input<TemplateRef<any>>();
 
   //this.genericCrudContext?.tabObjects of type T[]
 
@@ -43,6 +43,8 @@ export class GenericCrudComponent implements OnInit {
   formMessage/*: string*/ ="";
   
   mode  = "newOne"; //or "exitingOne"
+
+  subFormCompRef : any = input();
  
   constructor() {
    }

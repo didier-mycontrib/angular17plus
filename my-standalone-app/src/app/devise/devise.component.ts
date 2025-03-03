@@ -9,10 +9,12 @@ import { ObjectHelper } from '../shared/helper/object-helper';
 import { GenericCrudComponent } from '../shared/component/crud/generic-crud/generic-crud.component';
 import { DeviseService } from '../common/service/devise-rest.service';
 import { FilterDef } from '../shared/data/filter-def';
+import { JsonPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-devise',
-  imports: [GenericCrudComponent],
+  imports: [GenericCrudComponent,JsonPipe,FormsModule],
   templateUrl: './devise.component.html',
   styleUrl: './devise.component.scss'
 })

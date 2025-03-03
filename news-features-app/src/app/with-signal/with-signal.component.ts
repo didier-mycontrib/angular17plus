@@ -4,8 +4,23 @@ import { interval} from 'rxjs';
 import { toSignal} from '@angular/core/rxjs-interop';
 import { AsyncPipe, UpperCasePipe } from '@angular/common';
 
+// Refreshable<T> wrapper for handling immutability of signal value
+class Refreshable<T>{
+     public timestamp: Date;
+     constructor(public value:T){
+        this.timestamp=new Date(); //with time 
+     }
+     time(){
+      return this.timestamp.getTime();
+     }
+     refresh(){
+      return new Refreshable<T>(this.value);
+     }
+}
+
 @Component({
     selector: 'app-with-signal',
+    standalone : true,
     imports: [FormsModule, AsyncPipe, UpperCasePipe],
     templateUrl: './with-signal.component.html',
     styleUrl: './with-signal.component.scss'
@@ -14,8 +29,10 @@ export class WithSignalComponent {
   message="";
 
   //sCount=signal<number>(0);
-  sCount = signal(0);//new WritableSignal With initial value to 0 
+  sCount = signal(0);//new WritableSignal<number> With initial value to 0 
   //other possible signal types : String, boolean , object , array , ...
+
+  sRefreshableCount = signal(new Refreshable<number>(0));
 
   //NB: computed() function (of @angular/core) define a new comptuded Signal
   //wich depends of other(s) signal(s)
@@ -26,11 +43,23 @@ export class WithSignalComponent {
   //that will be automatic called when a signal value change
   //NB: a effect can make a api_call but should not change a other signal .
   logsCountEffect = effect(()=>{ this.message ="sCount="+this.sCount(); console.log(this.message);});
+  
+  logsRefreshableCountEffect = effect(()=>{ 
+    this.message ="sRefreshableCount="+this.sRefreshableCount().value + " with .timestamp="+ this.sRefreshableCount().time() ; 
+    console.log(this.message);}
+  );
 
   public onIncrement(){
     //NB: signalName as function call to get value ,
     //   .set() to update/change value with synchronization
     this.sCount.set(this.sCount() + 1);
+  }
+
+  public onRefresh(){
+    //signal.update(val) is only useful if val change
+    //refreshable wrapper instanstance is changed when .refesh() is call
+    //(with a new timestamp) but inner .value may still remain same value 
+    this.sRefreshableCount.set(this.sRefreshableCount().refresh());  
   }
 
   public onDecrement(){

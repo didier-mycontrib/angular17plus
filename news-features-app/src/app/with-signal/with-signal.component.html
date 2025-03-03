@@ -1,8 +1,13 @@
-<p>with-signal</p>
- <br/>
-
+<h3>with-signal</h3>
+<hr/>
+<pre>
+    sCount is a (local) :WritableSignal
+    sSquare is a (local) read-only/computed :Signal 
+</pre>
+<hr/>
 <span [style.color]="sCountColor()">sCount={{sCount()}}</span> 
 &nbsp; <button (click)="onIncrement()">++</button> 
+&nbsp; <button (click)="onRefresh()">refresh</button> 
 &nbsp; <button (click)="onDecrement()">--</button> <br/>
 <hr/>
 sSquare={{sSquare()}} <br/>

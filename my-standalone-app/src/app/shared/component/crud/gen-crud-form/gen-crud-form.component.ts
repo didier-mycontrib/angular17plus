@@ -1,9 +1,11 @@
-import { Component, effect, input, InputSignal, model, ModelSignal, output } from '@angular/core';
+import { Component, effect, input, InputSignal, model, ModelSignal, output, TemplateRef } from '@angular/core';
 import { MyTogglePanelComponent } from '../../generic/my-toggle-panel/my-toggle-panel.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MyMessageComponent } from "../../generic/my-message/my-message.component";
 import { MyImportMaterialModule } from '../../../imports/my-import-material.module';
+import { AutomaticGenSubFormComponent } from '../automatic-gen-sub-form/automatic-gen-sub-form.component';
+import { AbstractGenSubFormData } from '../abstract/AbstractGenSubFormData';
 
 /*
 Sous composant servant à :
@@ -14,9 +16,9 @@ Sous composant servant à :
 
 @Component({
   selector: 'gen-crud-form',
-  imports: [CommonModule, FormsModule, 
+  imports: [CommonModule, FormsModule, AutomaticGenSubFormComponent,
            MyTogglePanelComponent, MyMessageComponent,
-          MyImportMaterialModule],
+          MyImportMaterialModule ],
   templateUrl: './gen-crud-form.component.html',
   styleUrl: './gen-crud-form.component.scss'
 })
@@ -35,6 +37,13 @@ export class GenCrudFormComponent {
     //[(ngModel)]="deviseTempRef()!.code" , ....
     objectTempRef :ModelSignal<any> = model(null);
 
+    optionalSpecificSubFormTemplateRef = input<TemplateRef<any>>();
+
+    subFormData : AbstractGenSubFormData = 
+     { obj: this.objectTempRef(),
+      mode : this.modeRef()
+     } ;
+
     baseTitle ="selected entity";
     title = this.baseTitle;
 
@@ -44,6 +53,8 @@ export class GenCrudFormComponent {
 
     ngOnChanges(){
       this.originalObjectTemp = this.cloneObject(this.objectTempRef()); //for detect change attempt
+      this.subFormData.obj=this.objectTempRef();
+      this.subFormData.mode = this.modeRef();
     }
 
     hasBeenChanged():boolean{
