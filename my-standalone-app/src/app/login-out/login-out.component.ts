@@ -23,7 +23,7 @@ export class LoginOutComponent  {
   public isOk = false;
   public message="";
 
-  public loginMode: "standalone-login-api" | "oauth2" ="standalone-login-api" ;
+  public loginMode: "standalone-login-api" | "oauth2" ="oauth2";// by default or "standalone-login-api" ;
 
   public oauth2SessionService = inject(OAuth2SessionService);
 

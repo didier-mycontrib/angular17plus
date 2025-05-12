@@ -43,4 +43,13 @@ and
 @Input() articleId?: string;
 in ArticleComponent .
 
+================
+NB: si pb entre v17,v18,V19 :
+"ssr" : false,
+"prerender" : false
+plutot que 
+"prerender": true,
+            "ssr": {
+              "entry": "server.ts"
+            }
 

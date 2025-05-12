@@ -5,6 +5,9 @@ import { FilterDef } from '../../data/filter-def';
 
 export class GenericCrudContext<T,I>{
 
+    public requiredRole:string|null=null; //if not null and ("admin" or ...) private URL for "get"
+    public availableActions="READ,NEW,ADD,UPDATE,DELETE"; //or just "READ,DELETE" or "DELETE,UPDATE" or "...,...,..."
+
     public entityTypeName : string="UnknownEntityName"; //ex: "Devise" ou "Contact" ou ...
     
     constructor(public contextHelper : GenericCrudAbstractContextHelper<T,I> ){
@@ -21,7 +24,7 @@ export class GenericCrudContext<T,I>{
         if(crudHelper!=null)
             return crudHelper.onGetAllObjects$();
         else if(genericCrudService)
-           return   genericCrudService.getAllObjects$(null);
+           return   genericCrudService.getAllObjects$(this.requiredRole);
            //<Observable<T[]>> <any> = temporal workaround for unknown angular library version mismatch (rxjs from d2f-ngx-commons) when npm link (no problem with npm i -s d2f-ngx-commons)
         else return throwError(()=>{err:"onGetAllObjects$ not implemented (no genericCrudService and no crudHelper)"});
     }
@@ -31,7 +34,7 @@ export class GenericCrudContext<T,I>{
         if(crudHelper!=null)
             return crudHelper.onFindObjectsByCriteria$(criteria);
         else if(genericCrudService)
-           return   genericCrudService.findObjectsFromCriteria$(criteria,null);
+           return   genericCrudService.findObjectsFromCriteria$(criteria,this.requiredRole);
            //<Observable<T[]>> <any> = temporal workaround for unknown angular library version mismatch (rxjs from d2f-ngx-commons) when npm link (no problem with npm i -s d2f-ngx-commons)
         else return throwError(()=>{err:"onFindObjectsByCriteria$ not implemented (no genericCrudService and no crudHelper)"});
     }

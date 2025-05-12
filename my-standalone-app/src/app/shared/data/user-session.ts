@@ -6,7 +6,7 @@
 //basic UserSession class without method (can be easily cloned and stored in sessionStorage)
 export class UserSession{
     constructor(
-       public loginMode : string ="standalone-login-api", //or "oauth2"
+       public loginMode : string ="oauth2" ,//or "standalone-login-api",
        public authenticated : boolean = false,
        public userId : string ="?" /* uuid or num or userName or ... */,
        public userName : string ="?" /* to display : fullName or email or userId or ... */,

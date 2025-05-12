@@ -27,6 +27,7 @@
         [(objectTempRef)]="objectTemp"
         (actionEvent)="onActionEvent($event)"
         [optionalSpecificSubFormTemplateRef] = "optionalSpecificSubFormTemplateRef()"
+        [availableActions]="genericCrudContext()!.availableActions"
         >
        </gen-crud-form>
      </div> <!-- end of flexItem -->

@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { interval} from 'rxjs';
 import { toSignal} from '@angular/core/rxjs-interop';
 import { AsyncPipe, UpperCasePipe } from '@angular/common';
+import { SubComponent } from './sub/sub.component';
 
 // Refreshable<T> wrapper for handling immutability of signal value
 class Refreshable<T>{
@@ -21,12 +22,18 @@ class Refreshable<T>{
 @Component({
     selector: 'app-with-signal',
     standalone : true,
-    imports: [FormsModule, AsyncPipe, UpperCasePipe],
+    imports: [FormsModule, AsyncPipe, UpperCasePipe , SubComponent],
     templateUrl: './with-signal.component.html',
     styleUrl: './with-signal.component.scss'
 })
 export class WithSignalComponent {
-  message="";
+  message=""; //sera actualisé et affiché via un "effect"
+  messageCount=0; //nombre de fois où l'effet sera déclenché
+  refreshMessage=""; //sera actualisé et affiché via un "effect"
+  refreshMessageCount=0;//nombre de fois où l'effet sera déclenché
+
+  pMcS= signal(100); //parentMcSignal value (for <app-sub [(mc)]="pMcS")
+  pOcVal=0; //parent oc value
 
   //sCount=signal<number>(0);
   sCount = signal(0);//new WritableSignal<number> With initial value to 0 
@@ -42,24 +49,27 @@ export class WithSignalComponent {
   //NB: effect() function (of @angular/core) register a callback
   //that will be automatic called when a signal value change
   //NB: a effect can make a api_call but should not change a other signal .
-  logsCountEffect = effect(()=>{ this.message ="sCount="+this.sCount(); console.log(this.message);});
+  logsCountEffect = effect(()=>{ this.message ="["+ (++this.messageCount) + "] sCount="+this.sCount(); console.log(this.message);});
   
   logsRefreshableCountEffect = effect(()=>{ 
-    this.message ="sRefreshableCount="+this.sRefreshableCount().value + " with .timestamp="+ this.sRefreshableCount().time() ; 
-    console.log(this.message);}
+    this.refreshMessage ="["+ (++this.refreshMessageCount) + "] sRefreshableCount="+this.sRefreshableCount().value + " with .timestamp="+ this.sRefreshableCount().time() ; 
+    console.log(this.refreshMessage);}
   );
 
   public onIncrement(){
     //NB: signalName as function call to get value ,
     //   .set() to update/change value with synchronization
     this.sCount.set(this.sCount() + 1);
+    this.sRefreshableCount.set(new Refreshable<number>(this.sCount()));
   }
 
   public onRefresh(){
     //signal.update(val) is only useful if val change
-    //refreshable wrapper instanstance is changed when .refesh() is call
+    //refreshable wrapper instance is changed when .refesh() is call
     //(with a new timestamp) but inner .value may still remain same value 
-    this.sRefreshableCount.set(this.sRefreshableCount().refresh());  
+    this.sRefreshableCount.set(this.sRefreshableCount().refresh());  //change .time value (new instance of wrapper)
+
+    this.sCount.set(this.sCount()); //if same value (no change) --> no effect call , no update of display !!!
   }
 
   public onDecrement(){
@@ -67,6 +77,7 @@ export class WithSignalComponent {
     //.update(currentValue->newValue)
     //this.sCount.set(this.sCount() - 1);
     this.sCount.update ( count => count-1);
+    this.sRefreshableCount.set(new Refreshable<number>(this.sCount()));
   }
 
   public onSCountChange(event : Event){
@@ -76,15 +87,21 @@ export class WithSignalComponent {
 
   myIntervalObs = interval(1000); //observable emmitting 1,2,3,.. every 1000ms
   myIntervalSignal = toSignal(this.myIntervalObs, { initialValue: 0 } )
-  name1="";
-  name2AsSignal=signal("");
-  name3AsSignal=signal("");
+  name1="abc";
+  name2AsSignal=signal("abc");
+  name3AsSignal=signal("abc");
+
 
   public onName2Change(evt:Event){
       const newText = (evt.target as HTMLInputElement).value;
       console.log("newText="+newText);
       this.name2AsSignal.set(newText);
   }
+
+  public onOc( ocVal: number){
+      this.pOcVal=ocVal;
+  }
+
 }
 /*
 NB: with signals --> better performances , better automatic/internal change detection 

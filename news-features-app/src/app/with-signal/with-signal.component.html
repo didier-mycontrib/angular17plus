@@ -10,15 +10,26 @@
 &nbsp; <button (click)="onRefresh()">refresh</button> 
 &nbsp; <button (click)="onDecrement()">--</button> <br/>
 <hr/>
-sSquare={{sSquare()}} <br/>
-message(as an effect)={{message}}
-<hr/>
 sCount = <input type="number" [value]="sCount()" (change)="onSCountChange($event)"  />
+<hr/>
+sSquare={{sSquare()}} <br/>
+message(as an effect)={{message}}<br/>
+refreshMessage(as an effect)={{refreshMessage}}
+
 
 <hr/>
 from observable : {{ myIntervalObs | async}} <br/>
 from signal : {{ myIntervalSignal()}}
 <hr/>
-name1:<input [(ngModel)]="name1" /> {{name1 | uppercase}} <br/>
-name2AsSignal:<input [value]="name2AsSignal()" (input)="onName2Change($event)" /> {{name2AsSignal() | uppercase}} <br/>
+name1:<input [(ngModel)]="name1" /> {{name1 | uppercase}} (without signal)<br/>
+
+<!-- ok but not advised -->
+<!-- name2AsSignal:<input [value]="name2AsSignal()" (input)="onName2Change($event)" /> {{name2AsSignal() | uppercase}} <br/> -->
+
 name3AsSignal:<input [ngModel]="name3AsSignal()" (ngModelChange)="name3AsSignal.set($event)" /> {{name3AsSignal() | uppercase}} <br/>
+<!-- more simple equivalent with some recent angular version :-->
+name2AsSignal:<input [(ngModel)]="name2AsSignal"  /> {{name2AsSignal() | uppercase}} <br/>
+<hr/>
+<app-sub [(mc)]="pMcS" [ic]="sCount()"  (oc)="onOc($event)" ></app-sub> 
+<span>pOcVal={{pOcVal}}</span> <br/>
+<span>pMcS:<input [(ngModel)]="pMcS" /> {{pMcS()}} </span>
