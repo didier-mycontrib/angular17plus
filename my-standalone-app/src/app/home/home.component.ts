@@ -6,12 +6,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../shared/component/generic/confirm-dialog/confirm-dialog.component';
 import { TemplateDialogComponent } from '../shared/component/generic/template-dialog/template-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { WithSimplePopupComponent } from './with-simple-popup/with-simple-popup.component';
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [HighlightBackgroundOverDirective, HighlightBorderOverDirective,FormsModule],
+  imports: [HighlightBackgroundOverDirective, HighlightBorderOverDirective,FormsModule,
+    WithSimplePopupComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -21,25 +23,16 @@ export class HomeComponent {
   ageColor='black';
   divBackgroundColor="lightyellow";
   
-  @ViewChild('backColorChoose') backColorChooseTemplate!: TemplateRef<any>;
+  @ViewChild('backColorChoose') //<ng-template #backColorChoose >
+  backColorChooseTemplate!: TemplateRef<any>;
 
-  resultContext = { bgColor : this.divBackgroundColor};
+  @ViewChild('basicAgeInput') //<ng-template #basicAgeInput >
+  basicAgeInputTemplate!: TemplateRef<any>;
+
+  bgColorDialogContext = { bgColor : this.divBackgroundColor};
+  basicAgeDialogContext = { age : this.age};
 
   onDialogAge(){
-        //NB: { disableClose : true } for modal dialog box
-        /*
-        const dialogRef = this.dialog.open(InputDialogComponent,
-          { disableClose : true ,
-            data: { title : "How old are you ?" , label : "age" , defaultValue : this.age}
-          });
-    
-        dialogRef.afterClosed().subscribe(
-          (result : string ) => {
-            this.age=Number(result);
-          }
-        )*/
-
-       
           InputDialogComponent.inputDialog$(this.dialog,"age")
           .subscribe( (result : string ) => {
             this.age=Number(result);
@@ -65,7 +58,37 @@ export class HomeComponent {
     
     TemplateDialogComponent.templateDialog$(this.dialog, this.backColorChooseTemplate, "background color choice" )
     .subscribe( (isOk : boolean) => {
-      if(isOk) this.divBackgroundColor=this.resultContext.bgColor;
+      if(isOk) this.divBackgroundColor=this.bgColorDialogContext.bgColor;
     });
   }
+
+  onBasicTemplateDialogAge(){
+    /* NB:
+        disableClose : true for modal 
+        TemplateDialogComponent of shared/component/generic/template-dialog
+        required data with .title of .template as TemplateRef
+    */
+   /*
+    const dialogRef = this.dialog.open(TemplateDialogComponent,
+          { disableClose : true ,
+            data: { title : "How old are you ?" , template : this.basicAgeInputTemplate}
+          });
+    
+        dialogRef.afterClosed().subscribe(
+          (isOk : boolean) => {
+              if(isOk) this.age=Number(this.basicAgeDialogContext.age);
+          }
+        );
+    */
+
+        TemplateDialogComponent.templateDialog$(this.dialog,this.basicAgeInputTemplate,"How old are you ?")
+        .subscribe(
+          (isOk : boolean) => {
+              if(isOk) this.age=Number(this.basicAgeDialogContext.age);
+          }
+        );
+
+
+  }
+
 }

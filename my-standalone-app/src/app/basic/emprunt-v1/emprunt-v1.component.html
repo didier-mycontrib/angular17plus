@@ -1,0 +1,13 @@
+<p>emprunt-v1 (calcul mensualité constante pour emprunt )</p>
+montant=<input name="montant" [(ngModel)]="montant" /> <br/>
+tauxInteretAnnuel=<input name="tauxInteretAnnuel" [(ngModel)]="tauxInteretAnnuelPct" /> (en %) <br/>
+durée (nbMois)=<input name="nbMois" [(ngModel)]="nbMois"
+(input)="onNbMois()" /><br/>
+durée (en années) : <select [(ngModel)]="nbAnnees" name="selNbAnnees" (change)="onChangeNbAnnees()">
+    @for(nbA of nbAnneesPossibles; track nbA){
+       <option>{{nbA}}</option>
+    }
+</select><br/>
+<button id="btnCalculerMensualite" (click)="onCalculerMensualite()" >calculer mensualite</button> <br/>
+<hr/>
+mensualite=<span id="spanMensualite">{{mensualite}}</span>
