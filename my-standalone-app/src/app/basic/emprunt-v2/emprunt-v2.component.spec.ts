@@ -3,10 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EmpruntV2Component } from './emprunt-v2.component';
 import { setValueInInput, setValueInSelect } from '../../shared/util/test-util';
 
-//NB: cet import additionnel est (selon version angular) quelquefois
-// nécessaire pour fixer directement la valeur d'un signal depuis une classe de test:
-//import { SIGNAL, signalSetFn } from '@angular/core/primitives/signals';
-
 describe('EmpruntV2Component', () => {
   let component: EmpruntV2Component;
   let fixture: ComponentFixture<EmpruntV2Component>;
@@ -31,8 +27,10 @@ describe('EmpruntV2Component', () => {
       component.tauxInteretAnnuelPct.set(2.5);
 
       component.nbMois.set(60);  //ok avec angular 19.0.0 et et 19.2.0
-      //signalSetFn(<any>component.nbMois[SIGNAL], 60);//ok avec angular 19.0.0 et 19.2.0
-
+      //NB: la méthode .set() n'est appelable que sur un WritableSignal<T> et pas un Signal<T>
+      //du coté ....component.ts soit nbMois = signal(12*4) ,
+      //                         soit nbMois : WritableSignal<number> = signal(12*4)
+      //                    mais pas nbMois : Signal<number> = signal(12*4)
 
       fixture.detectChanges();
       const compNativeElt = fixture.debugElement.nativeElement;

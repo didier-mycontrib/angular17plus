@@ -6,12 +6,13 @@ import { MyImportMaterialModule } from '../shared/imports/my-import-material.mod
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { EmpruntV1Component } from './emprunt-v1/emprunt-v1.component';
 import { EmpruntV2Component } from './emprunt-v2/emprunt-v2.component';
+import { EmpruntV3Component } from './emprunt-v3/emprunt-v3.component';
 
 @Component({
   selector: 'app-basic',
   imports: [MyTogglePanelComponent,CalculatriceComponent,TvaComponent,
            MyImportMaterialModule,RouterOutlet,RouterLink,
-           EmpruntV1Component,EmpruntV2Component
+           EmpruntV1Component,EmpruntV2Component,EmpruntV3Component
   ],
   templateUrl: './basic.component.html',
   styleUrl: './basic.component.scss'

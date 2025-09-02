@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Devise } from '../common/data/devise';
@@ -13,9 +13,9 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './conversion.component.scss'
 })
 export class ConversionComponent {
-  montant: number = 0;
-  codeDeviseSource: string = "?";
-  codeDeviseCible: string = "?";
+  montant=signal(0);
+  codeDeviseSource=signal("?");
+  codeDeviseCible=signal("?");
   //montantConverti: number = 0;
   montantConvertiObs$!: Observable<number>;
   listeDevises: Devise[] = []; //à choisir dans liste déroulante.
@@ -36,16 +36,16 @@ export class ConversionComponent {
   onConvertir() {
     console.log("debut de onConvertir")
 
-    this.montantConvertiObs$ = this._deviseService.convertir$(this.montant,
-      this.codeDeviseSource,
-      this.codeDeviseCible);
+    this.montantConvertiObs$ = this._deviseService.convertir$(this.montant(),
+      this.codeDeviseSource(),
+      this.codeDeviseCible());
   }
 
   initListeDevises(tabDevises: Devise[]) {
     this.listeDevises = tabDevises;
     if (tabDevises && tabDevises.length > 0) {
-      this.codeDeviseSource = tabDevises[0].code; //valeur par défaut
-      this.codeDeviseCible = tabDevises[0].code; //valeur par défaut
+      this.codeDeviseSource.set(tabDevises[0].code); //valeur par défaut
+      this.codeDeviseCible.set(tabDevises[0].code); //valeur par défaut
     }
   }
 
