@@ -37,8 +37,7 @@ export class D2fNgxLayoutComponent implements OnInit {
     new MenuDef("login-out","/ngr-login-out")
   ];
 
-  mainMenuDefs :InputSignal<MenuDef[]> = input(this._defaultMainMenuDefs,
-    {transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+  mainMenuDefs = input<MenuDef[]>(this._defaultMainMenuDefs);
 
   
   private _defaultQuickMenuDefs : MenuDef[] =[
@@ -46,8 +45,7 @@ export class D2fNgxLayoutComponent implements OnInit {
     new MenuDef("login-out","/ngr-login-out")
   ];
 
-  quickMenuDefs :InputSignal<MenuDef[]> = input(this._defaultQuickMenuDefs,
-        {transform: (menuDefArray)=> <MenuDef[]><any> menuDefArray });
+  quickMenuDefs = input<MenuDef[]>(this._defaultQuickMenuDefs);
   
 
   @ViewChild('matSideNav', { static: true })
