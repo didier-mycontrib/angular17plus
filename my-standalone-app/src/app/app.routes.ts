@@ -5,7 +5,6 @@ import { DemoComponent } from './demo/demo.component';
 import { LoginOutComponent } from './login-out/login-out.component';
 import { TvaComponent } from './basic/tva/tva.component';
 import { CalculatriceComponent } from './basic/calculatrice/calculatrice.component';
-import { WithAnimationsComponent } from './with-animations/with-animations.component';
 import { DeviseComponent } from './devise/devise.component';
 import { ProductComponent } from './product/product.component';
 import { ConversionComponent } from './conversion/conversion.component';
@@ -33,7 +32,7 @@ export const routes: Routes = [
     },
     { path: 'ngr-product', component: ProductComponent },
     { path: 'ngr-demo', component: DemoComponent },
-    { path: 'ngr-with-animations', component: WithAnimationsComponent },
     { path: '', redirectTo: '/ngr-home', pathMatch: 'full'},
     { path: '**', redirectTo: '/ngr-home', pathMatch: 'full'}
 ];
+

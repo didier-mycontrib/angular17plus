@@ -1,4 +1,4 @@
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
 import { HighlightBackgroundOverDirective } from '../shared/directive/highlight-background-over.directive';
 import { HighlightBorderOverDirective } from '../shared/directive/highlight-border-over.directive';
 import { InputDialogComponent } from '../shared/component/generic/input-dialog/input-dialog.component';
@@ -18,10 +18,10 @@ import { WithSimplePopupComponent } from './with-simple-popup/with-simple-popup.
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  age=0;
+  age=signal(0);
   readonly dialog = inject(MatDialog); 
-  ageColor='black';
-  divBackgroundColor="lightyellow";
+  ageColor=signal('black');
+  divBackgroundColor=signal("lightyellow");
   
   @ViewChild('backColorChoose') //<ng-template #backColorChoose >
   backColorChooseTemplate!: TemplateRef<any>;
@@ -29,27 +29,29 @@ export class HomeComponent {
   @ViewChild('basicAgeInput') //<ng-template #basicAgeInput >
   basicAgeInputTemplate!: TemplateRef<any>;
 
-  bgColorDialogContext = { bgColor : this.divBackgroundColor};
-  basicAgeDialogContext = { age : this.age};
+  bgColorDialogContext = { bgColor : this.divBackgroundColor()};
+  basicAgeDialogContext = { age : this.age()};
 
   onDialogAge(){
           InputDialogComponent.inputDialog$(this.dialog,"age")
           .subscribe( (result : string ) => {
-            this.age=Number(result);
+            if(result!="")
+               this.age.set(Number(result));
           });
   }
 
   onDialogChooseColor(){
-    InputDialogComponent.inputChoiceDialog$(this.dialog,"color",["black","red","green","blue","orange"],this.ageColor)
+    InputDialogComponent.inputChoiceDialog$(this.dialog,"color",["black","red","green","blue","orange"],this.ageColor())
     .subscribe( (result : string ) => {
-      this.ageColor=result;
+      console.log("onDialogChooseColor result = "+result)
+      this.ageColor.set(result);
     })
   }
 
   onDialogConfirmReset(){
     ConfirmDialogComponent.confirmDialog$(this.dialog,"reset age to 0 ?")
     .subscribe( (isOk : boolean ) => {
-      if(isOk) this.age=0;
+      if(isOk) this.age.set(0);
     });
   }
   
@@ -58,7 +60,8 @@ export class HomeComponent {
     
     TemplateDialogComponent.templateDialog$(this.dialog, this.backColorChooseTemplate, "background color choice" )
     .subscribe( (isOk : boolean) => {
-      if(isOk) this.divBackgroundColor=this.bgColorDialogContext.bgColor;
+      if(isOk) 
+        this.divBackgroundColor.set(this.bgColorDialogContext.bgColor);
     });
   }
 
@@ -76,7 +79,7 @@ export class HomeComponent {
     
         dialogRef.afterClosed().subscribe(
           (isOk : boolean) => {
-              if(isOk) this.age=Number(this.basicAgeDialogContext.age);
+              if(isOk) this.age.set(Number(this.basicAgeDialogContext.age));
           }
         );
     */
@@ -84,7 +87,7 @@ export class HomeComponent {
         TemplateDialogComponent.templateDialog$(this.dialog,this.basicAgeInputTemplate,"How old are you ?")
         .subscribe(
           (isOk : boolean) => {
-              if(isOk) this.age=Number(this.basicAgeDialogContext.age);
+              if(isOk) this.age.set(Number(this.basicAgeDialogContext.age));
           }
         );
 

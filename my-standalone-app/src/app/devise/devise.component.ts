@@ -8,6 +8,7 @@ import { DeviseService } from '../common/service/devise-rest.service';
 import { FilterDef } from '../shared/data/filter-def';
 import { JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DeviseMemService } from '../common/service/devise-mem.service';
 
 @Component({
   selector: 'app-devise',
@@ -21,7 +22,7 @@ export class DeviseComponent {
   genericCrudContext : GenericCrudContext<Devise,String> ;
   
 
-  constructor(public deviseService : DeviseService /*: DeviseMemService*/) {
+  constructor(public deviseService : DeviseService  /*DeviseMemService*/) {
     this.genericCrudContext = new GenericCrudContext<Devise,String>(
       this.objectHelper,
       this.deviseService);

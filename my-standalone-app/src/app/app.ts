@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BasicComponent } from './basic/basic.component';
 import { MyTogglePanelComponent } from './shared/component/generic/my-toggle-panel/my-toggle-panel.component';
@@ -7,21 +7,19 @@ import { MenuDef } from './shared/data/menu-def';
 
 @Component({
   selector: 'app-root',
-  //imports: [RouterOutlet,BasicComponent,MyTogglePanelComponent],
   imports: [D2fNgxLayoutComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.html',
+  styleUrl: './app.scss'
 })
-export class AppComponent {
-  title = 'my-standalone-app';
-
+export class App {
+  protected readonly title = signal('my-standalone-app');
+ 
   legalFooterMainText ="this app legal footer"
 
   appMenuDefs : MenuDef[] = [
     new MenuDef("home","/ngr-home"),
     new MenuDef("public ...",null,[
       new MenuDef("basic","/ngr-basic"),
-      new MenuDef("animations","/ngr-with-animations"),
       new MenuDef("demo","/ngr-demo"),
       new MenuDef("conversion","/ngr-conversion")
     ]),

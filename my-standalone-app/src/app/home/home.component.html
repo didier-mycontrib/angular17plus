@@ -8,9 +8,9 @@
 <div highlightBorderOver>divB with highlightBorderOver directive</div>
 <span highlightBorderOver="red">span with highlightBorderOver directive</span>
 <hr/>
-<div [style.background]="divBackgroundColor" class="withPadding">
+<div [style.background]="divBackgroundColor()" class="withPadding">
     <button (click)="onDialogAge()">age? dialog</button> 
-    age=<span [style.color]="ageColor">{{age}}</span> &nbsp;
+    age=<span [style.color]="ageColor()">{{age()}}</span> &nbsp;
     <button (click)="onDialogConfirmReset()">reset age? dialog</button> &nbsp;
     <button (click)="onDialogChooseColor()">color? choice dialog</button> &nbsp;
     <button (click)="onDialogChooseBackColor()">back color? template dialog</button>

@@ -1,25 +1,25 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { Login, LoginResponse } from '../common/data/login';
 import { UserSessionService } from '../shared/service/user-session.service';
 import { UserSessionEx, UserSession } from '../shared/data/user-session';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { LoginService } from '../common/service/login.service';
 import { MyStorageUtilService } from '../shared/service/my-storage-util.service';
 import { OAuth2SessionService } from '../common/service/oauth2-session.service';
 
 @Component({
   selector: 'app-login-out',
-  imports: [NgIf,FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './login-out.component.html',
   styleUrl: './login-out.component.scss'
 })
 
 export class LoginOutComponent  {
 
-  public userSessionService = inject(UserSessionService);
+  public userSessionService = inject(UserSessionService);//shared/service/...
   private _loginService = inject(LoginService);
-  private _myStorageUtilService = inject(MyStorageUtilService);
+  private _myStorageUtilService = inject(MyStorageUtilService);//pour mode ssr
   public isOk = false;
   public message="";
 
@@ -28,6 +28,7 @@ export class LoginOutComponent  {
   public oauth2SessionService = inject(OAuth2SessionService);
 
   userSessionEx  = new UserSessionEx(undefined);
+  sAuthenticated = computed(()=> this.userSessionService.sUserSession().authenticated);
   login  = new Login();
 
   private userSessionEffect = effect(()=>{
