@@ -1,0 +1,10 @@
+.myFlexRow { width: 100%;	display: flex;  flex-flow: row nowrap; }
+.myFlexCell {flex: 1 1 auto;   text-align: left;  padding: 2px;}
+.enEvidence { color: blue; font-weight : bold;}
+.c1{
+    background-color: rgb(180, 243, 180);
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}

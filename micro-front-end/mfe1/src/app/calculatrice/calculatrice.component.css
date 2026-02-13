@@ -1,0 +1,14 @@
+.c1 { background-color: rgb(244, 252, 142)}
+.c2 { background-color: rgb(200, 207, 153)}
+li { font-style: italic;}
+label { display: inline-block; width: 6em;}
+.negatif { color : red; font-style: italic;}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

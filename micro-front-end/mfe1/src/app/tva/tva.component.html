@@ -1,0 +1,35 @@
+<div class="c1">
+   <p>calcul tva</p>
+      
+   <label>ht:</label> <input name="ht" type="number" [(ngModel)]="ht" /> <br/>
+
+   <label>tauxTva(%):</label> 
+      <select [(ngModel)]="tauxTvaPct" name="taux" >
+         @for(t of tauxPossibles; track t){
+            <option [ngValue]="t" >{{t}}%</option>
+         }
+      </select> <br/>
+   @if(ht()>0){
+         <div>   
+         tva=<span class="enEvidence" id="spanTva">{{tva() | number:'1.0-2' : 'en' }}</span>&nbsp; {{tva() | toFixed : 3 }}<br/>
+         ttc=<span class="enEvidence" id="spanTtc">{{ttc() | number:'1.0-2' : 'fr' }}</span>&nbsp; {{ttc() | toFixed }}<br/>
+         </div>
+      }
+   <hr/>
+
+   <div class="myFlexRow">
+      <div class="myFlexCell">
+         <h6>principaux taux de tva:</h6>
+         <ul>
+            @for(t of tauxPossibles; track t){
+            <li (click)="onSelectTaux(t)"
+               [class.enEvidence]="t === tauxSel">{{t}}%</li>
+            }
+         </ul>
+      </div>
+      <div class="myFlexCell">
+      <h6>principales catégories pour le taux sélectionné:</h6>
+      <p class="enEvidence">{{listeCategoriePourTauxSel}}</p>
+      </div>
+   </div>
+</div>
